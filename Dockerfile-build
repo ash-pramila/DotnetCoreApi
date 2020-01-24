@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch
+WORKDIR /app
+
+# Copy everything else and build
+COPY . ./
+#RUN dotnet restore
+RUN dotnet build
+RUN mkdir -p Reports
+ENTRYPOINT dotnet test --logger 'trx;LogFileName=TestResults.trx' --results-directory /app/Reports/UnitTests /p:CollectCoverage=true /p:CoverletOutput=/app/Reports/Coverage/ /p:CoverletOutputFormat=cobertura
