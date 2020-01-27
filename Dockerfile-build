@@ -9,6 +9,7 @@ RUN mkdir -p Reports
 
 #Sonar
 RUN dotnet tool install --global dotnet-sonarscanner
+ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=/app/Reports/Coverage/
 RUN dotnet sonarscanner begin /k:SampleDotNetCore2RestStub /d:sonar.host.url=https://sonarqube-rg.azurewebsites.net /d:sonar.cs.opencover.reportsPaths=/app/Reports/Coverage/coverage.opencover.xml /d:sonar.coverage.exclusions=”**Test*.cs”
 RUN docker build
