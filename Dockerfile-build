@@ -8,6 +8,7 @@ RUN dotnet build
 RUN mkdir -p Reports
 
 #Sonar
+RUN apt-get update && apt-get install -y openjdk-8-jre
 RUN dotnet tool install --global dotnet-sonarscanner
 ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=/app/Reports/Coverage/
